@@ -1,0 +1,34 @@
+{
+  "http-config" : {
+    "host" : "0.0.0.0",
+    "port" : 8080,
+    "base-uri" : "http://localhost:8080/"
+  },
+  "rdf-store" : {
+    "in-memory" : false,
+    "store-path" : "data/"
+  },
+  "notification-config" : {
+    "enabled" : true
+  },
+  "environment-config" : {
+    "enabled" : true,
+    "known-artifacts" : [
+      {
+        "class" : "https://example.org/Source",
+        "template" : "org.hyperagents.demo.Source"
+      }
+    ],
+    "workspaces" : [
+      {
+        "name" : "production",
+        "artifacts" : [
+          {
+            "name" : "source",
+            "class" : "https://example.org/Source"
+          }
+        ]
+      }
+    ]
+  }
+}

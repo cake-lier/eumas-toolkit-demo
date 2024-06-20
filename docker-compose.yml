@@ -1,0 +1,28 @@
+services:
+  environment_production:
+    image: environment:latest
+    pull_policy: never
+    build:
+      context: environment
+    container_name: env_production
+    environment:
+      VERTX_CONFIG_PATH: "conf/config_production.json"
+    network_mode: "host"
+  environment_shared:
+    image: environment:latest
+    pull_policy: never
+    depends_on:
+      - environment_production
+    container_name: env_shared
+    environment:
+      VERTX_CONFIG_PATH: "conf/config_shared.json"
+    network_mode: "host"
+  environment_consumption:
+    image: environment:latest
+    pull_policy: never
+    depends_on:
+      - environment_shared
+    container_name: env_consumption
+    environment:
+      VERTX_CONFIG_PATH: "conf/config_consumption.json"
+    network_mode: "host"
