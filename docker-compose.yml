@@ -7,7 +7,9 @@ services:
     container_name: env_production
     environment:
       VERTX_CONFIG_PATH: "conf/config_production.json"
-    network_mode: "host"
+    network_mode: "bridge"
+    ports:
+      - "8080:8080"
   environment_shared:
     image: environment:latest
     pull_policy: never
@@ -16,7 +18,9 @@ services:
     container_name: env_shared
     environment:
       VERTX_CONFIG_PATH: "conf/config_shared.json"
-    network_mode: "host"
+    network_mode: "bridge"
+    ports:
+      - "8082:8082"
   environment_consumption:
     image: environment:latest
     pull_policy: never
@@ -25,4 +29,6 @@ services:
     container_name: env_consumption
     environment:
       VERTX_CONFIG_PATH: "conf/config_consumption.json"
-    network_mode: "host"
+    network_mode: "bridge"
+    ports:
+      - "8081:8081"
