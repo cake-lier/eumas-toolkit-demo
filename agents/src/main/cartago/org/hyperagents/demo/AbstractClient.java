@@ -9,18 +9,6 @@ import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
-import org.eclipse.rdf4j.model.Model;
-import org.eclipse.rdf4j.model.impl.LinkedHashModel;
-import org.eclipse.rdf4j.rio.RDFFormat;
-import org.eclipse.rdf4j.rio.RDFHandlerException;
-import org.eclipse.rdf4j.rio.RDFParseException;
-import org.eclipse.rdf4j.rio.Rio;
-import org.eclipse.rdf4j.rio.helpers.BasicWriterSettings;
-import org.eclipse.rdf4j.rio.helpers.StatementCollector;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.StringReader;
-import java.nio.charset.StandardCharsets;
 
 public abstract class AbstractClient extends Artifact {
     private WebClient client;
@@ -29,6 +17,7 @@ public abstract class AbstractClient extends Artifact {
     private String sharedHost;
     private int sharedPort;
     private String agentName;
+    private String homeWorkspace;
     private boolean requestComplete;
 
     @OPERATION
@@ -37,6 +26,7 @@ public abstract class AbstractClient extends Artifact {
             this.getClient()
                 .post(this.platformPort, this.platformHost, "/workspaces/" + workspaceName + "/join")
                 .putHeader("X-Agent-WebID", this.getAgentId())
+                .putHeader("Slug", this.agentName)
                 .send()
         );
     }
@@ -47,12 +37,14 @@ public abstract class AbstractClient extends Artifact {
             this.getClient()
                 .post(this.sharedPort, this.sharedHost, "/workspaces/shared/join")
                 .putHeader("X-Agent-WebID", this.getAgentId())
+                .putHeader("Slug", this.agentName)
                 .send()
         );
     }
 
     protected void init(
         final String agentName,
+        final String homeWorkspace,
         final String platformHost,
         final int platformPort,
         final String sharedHost,
@@ -60,6 +52,7 @@ public abstract class AbstractClient extends Artifact {
     ) {
         this.client = WebClient.create(Vertx.vertx());
         this.agentName = agentName;
+        this.homeWorkspace = homeWorkspace;
         this.platformHost = platformHost;
         this.platformPort = platformPort;
         this.sharedHost = sharedHost;
@@ -87,7 +80,7 @@ public abstract class AbstractClient extends Artifact {
     }
 
     protected final String getAgentId() {
-        return "http://" + this.platformHost + ":" + this.platformPort + "/agents/" + this.agentName;
+        return "http://" + this.platformHost + ":" + this.platformPort + "/workspaces/" + this.homeWorkspace + "/agents/" + this.agentName + "#agent";
     }
 
     protected final String doRequest(final Future<HttpResponse<Buffer>> request) {

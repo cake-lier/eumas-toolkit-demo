@@ -3,11 +3,11 @@ package org.hyperagents.demo;
 import cartago.OPERATION;
 import ch.unisg.ics.interactions.wot.td.schemas.ArraySchema;
 import ch.unisg.ics.interactions.wot.td.schemas.IntegerSchema;
-import org.hyperagents.yggdrasil.cartago.artifacts.HypermediaArtifact;
+import org.hyperagents.yggdrasil.cartago.artifacts.HypermediaTDArtifact;
 
 import java.util.Random;
 
-public class Sink extends HypermediaArtifact {
+public class Sink extends HypermediaTDArtifact {
     private final Random random = new Random();
 
     @OPERATION

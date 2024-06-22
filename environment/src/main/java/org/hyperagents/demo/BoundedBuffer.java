@@ -5,12 +5,12 @@ import cartago.OPERATION;
 import cartago.OpFeedbackParam;
 import ch.unisg.ics.interactions.wot.td.schemas.ArraySchema;
 import ch.unisg.ics.interactions.wot.td.schemas.IntegerSchema;
-import org.hyperagents.yggdrasil.cartago.artifacts.HypermediaArtifact;
+import org.hyperagents.yggdrasil.cartago.artifacts.HypermediaTDArtifact;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BoundedBuffer extends HypermediaArtifact {
+public class BoundedBuffer extends HypermediaTDArtifact {
     private final Queue<Integer> internalBuffer = new LinkedList<>();
     private int size = 0;
 

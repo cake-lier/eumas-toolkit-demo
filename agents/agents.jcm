@@ -12,8 +12,8 @@ mas demo {
     }
 
     workspace local {
-        artifact client_alice: org.hyperagents.demo.ProducerClient(alice, localhost, 8080, localhost, 8082)
-        artifact client_bob: org.hyperagents.demo.ConsumerClient(bob, localhost, 8081, localhost, 8082)
+        artifact client_alice: org.hyperagents.demo.ProducerClient(alice, production, localhost, 8080, localhost, 8082)
+        artifact client_bob: org.hyperagents.demo.ConsumerClient(bob, consumption, localhost, 8081, localhost, 8082)
 
         agents: alice, bob
     }
