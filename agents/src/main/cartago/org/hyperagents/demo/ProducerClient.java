@@ -10,12 +10,13 @@ public class ProducerClient extends AbstractClient {
     @Override
     public void init(
         final String agentName,
+        final String homeWorkspace,
         final String platformHost,
         final int platformPort,
         final String sharedHost,
         final int sharedPort
     ) {
-        super.init(agentName, platformHost, platformPort, sharedHost, sharedPort);
+        super.init(agentName, homeWorkspace, platformHost, platformPort, sharedHost, sharedPort);
     }
 
     @OPERATION

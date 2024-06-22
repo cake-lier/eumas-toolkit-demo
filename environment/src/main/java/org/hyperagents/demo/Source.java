@@ -2,11 +2,11 @@ package org.hyperagents.demo;
 
 import cartago.OPERATION;
 import cartago.OpFeedbackParam;
-import org.hyperagents.yggdrasil.cartago.artifacts.HypermediaArtifact;
+import org.hyperagents.yggdrasil.cartago.artifacts.HypermediaTDArtifact;
 
 import java.util.Random;
 
-public class Source extends HypermediaArtifact {
+public class Source extends HypermediaTDArtifact {
     private final Random random = new Random();
 
     @OPERATION
