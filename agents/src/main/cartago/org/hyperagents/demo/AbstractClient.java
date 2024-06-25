@@ -26,7 +26,7 @@ public abstract class AbstractClient extends Artifact {
             this.getClient()
                 .post(this.platformPort, this.platformHost, "/workspaces/" + workspaceName + "/join")
                 .putHeader("X-Agent-WebID", this.getAgentId())
-                .putHeader("Slug", this.agentName)
+                .putHeader("X-Agent-LocalName", this.agentName)
                 .send()
         );
     }
@@ -37,7 +37,7 @@ public abstract class AbstractClient extends Artifact {
             this.getClient()
                 .post(this.sharedPort, this.sharedHost, "/workspaces/shared/join")
                 .putHeader("X-Agent-WebID", this.getAgentId())
-                .putHeader("Slug", this.agentName)
+                .putHeader("X-Agent-LocalName", this.agentName)
                 .send()
         );
     }

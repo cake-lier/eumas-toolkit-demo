@@ -22,8 +22,8 @@ public class Source extends HypermediaTDArtifact {
         this.registerActionAffordance(
             "https://example.org/Produce",
             "produce",
-            "/produce"
+            "produce"
         );
-        this.registerFeedbackParameter("produce");
+        this.registerFeedbackParameters("produce", 1);
     }
 }
