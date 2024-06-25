@@ -22,7 +22,11 @@
     ],
     "workspaces" : [
       {
+        "name" : "manufacturing"
+      },
+      {
         "name" : "shared",
+        "parent-name" : "manufacturing",
         "artifacts" : [
           {
             "name" : "buffer",
