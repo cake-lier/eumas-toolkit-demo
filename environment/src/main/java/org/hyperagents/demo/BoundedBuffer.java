@@ -48,7 +48,7 @@ public class BoundedBuffer extends HypermediaTDArtifact {
         this.registerActionAffordance(
             "https://example.org/Enqueue",
             "enqueue",
-            "/enqueue",
+            "enqueue",
             new ArraySchema.Builder()
                            .addItem(new IntegerSchema.Builder().build())
                            .build()
@@ -56,8 +56,8 @@ public class BoundedBuffer extends HypermediaTDArtifact {
         this.registerActionAffordance(
             "https://example.org/Poll",
             "poll",
-            "/poll"
+            "poll"
         );
-        this.registerFeedbackParameter("poll");
+        this.registerFeedbackParameters("poll", 1);
     }
 }

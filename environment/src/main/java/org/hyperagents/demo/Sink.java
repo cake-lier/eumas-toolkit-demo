@@ -21,7 +21,7 @@ public class Sink extends HypermediaTDArtifact {
         this.registerActionAffordance(
             "https://example.org/Consume",
             "consume",
-            "/consume",
+            "consume",
             new ArraySchema.Builder()
                            .addItem(new IntegerSchema.Builder().build())
                            .build()
