@@ -25,9 +25,17 @@ env_shared       | [vert.x-eventloop-thread-0] INFO io.vertx.core.impl.launcher.
 env_consumption  | [vert.x-eventloop-thread-0] INFO io.vertx.core.impl.launcher.commands.VertxIsolatedDeployer - Succeeded in deploying verticle
 ```
 
-5. Since the environment platform is now running, the JaCaMo platform containing the agents needs to be started. 
-Use the command ```./gradlew agents:runAgents``` in a different shell from the one you used for the Docker command.
-6. The system has now finished running, so we can examine its logs.
+5. Add hyperlinks across the 3 hypermedia workspaces by running the following script:
+
+```
+./scripts/add_remote_workspaces.sh
+```
+
+You can now browse the distributed hypermedia workspace from the following entry point: http://localhost:8082/workspaces/manufacturing#workspace
+
+6. Since the environment platform is now running, the JaCaMo platform containing the agents needs to be started. 
+Use the command ```./gradlew agents:runHypermediaAgents``` in a different shell from the one you used for the Docker command.
+7. The system has now finished running, so we can examine its logs.
 
 ## Clean-up
 
