@@ -35,7 +35,8 @@ dependencies {
     implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
     implementation("io.vertx:vertx-web-client")
     implementation("io.vertx:vertx-web")
-    implementation("com.github.Interactions-HSG:wot-td-java:v0.1.2")
+    implementation("com.github.Interactions-HSG:wot-td-java:master-SNAPSHOT")
+    implementation(project(":jacamo-hypermedia:lib"))
     implementation("org.eclipse.rdf4j:rdf4j-model:$rdf4jVersion")
     implementation("org.eclipse.rdf4j:rdf4j-rio-api:$rdf4jVersion")
 }
@@ -73,6 +74,14 @@ tasks {
         dependsOn("classes")
         mainClass = "jacamo.infra.JaCaMoLauncher"
         args = listOf("agents.jcm")
+        classpath = sourceSets.main.get().runtimeClasspath
+    }
+
+        register<JavaExec>("runHypermediaAgents") {
+        description = "Runs the JaCaMo application launching the agents"
+        dependsOn("classes")
+        mainClass = "jacamo.infra.JaCaMoLauncher"
+        args = listOf("hypermedia_agents.jcm")
         classpath = sourceSets.main.get().runtimeClasspath
     }
 }

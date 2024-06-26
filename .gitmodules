@@ -1,0 +1,3 @@
+[submodule "jacamo-hypermedia"]
+	path = jacamo-hypermedia
+	url = git@github.com:HyperAgents/jacamo-hypermedia.git
