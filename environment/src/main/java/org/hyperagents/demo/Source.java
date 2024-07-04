@@ -2,6 +2,10 @@ package org.hyperagents.demo;
 
 import cartago.OPERATION;
 import cartago.OpFeedbackParam;
+import ch.unisg.ics.interactions.wot.td.schemas.ArraySchema;
+import ch.unisg.ics.interactions.wot.td.schemas.DataSchema;
+import ch.unisg.ics.interactions.wot.td.schemas.IntegerSchema;
+
 import org.hyperagents.yggdrasil.cartago.artifacts.HypermediaTDArtifact;
 
 import java.util.Random;
@@ -22,8 +26,11 @@ public class Source extends HypermediaTDArtifact {
         this.registerActionAffordance(
             "https://example.org/Produce",
             "produce",
-            "produce"
+            "produce",
+            null,
+            new ArraySchema.Builder()
+                .addItem(new IntegerSchema.Builder().build())
+                .build()
         );
-        this.registerFeedbackParameters("produce", 1);
     }
 }
