@@ -1,4 +1,4 @@
 rootProject.name = "demo"
 
 include(":jacamo-hypermedia:lib")
-include("agents", "environment")
+include("agents", "hypermedia-agents", "environment")
