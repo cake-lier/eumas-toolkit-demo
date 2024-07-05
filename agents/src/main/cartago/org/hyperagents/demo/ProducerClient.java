@@ -31,8 +31,10 @@ public class ProducerClient extends AbstractClient {
                             "/workspaces/production/artifacts/source/produce"
                         )
                         .putHeader("X-Agent-WebID", this.getAgentId())
+                        .putHeader("X-Agent-LocalName", this.getAgentName())
                         .send()
                 )
+                .replaceAll("[\\[\\]]", "")
             )
         );
     }
@@ -47,6 +49,7 @@ public class ProducerClient extends AbstractClient {
                     "/workspaces/shared/artifacts/buffer/enqueue"
                 )
                 .putHeader("X-Agent-WebID", this.getAgentId())
+                .putHeader("X-Agent-LocalName", this.getAgentName())
                 .putHeader(HttpHeaders.CONTENT_TYPE.toString(), ContentType.APPLICATION_JSON.getMimeType())
                 .sendJson(JsonArray.of(item))
         );

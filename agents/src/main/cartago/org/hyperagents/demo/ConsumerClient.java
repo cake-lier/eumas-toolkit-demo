@@ -29,6 +29,7 @@ public class ConsumerClient extends AbstractClient {
                     "/workspaces/consumption/artifacts/sink/consume"
                 )
                 .putHeader("X-Agent-WebID", this.getAgentId())
+                .putHeader("X-Agent-LocalName", this.getAgentName())
                 .putHeader(HttpHeaders.CONTENT_TYPE.toString(), ContentType.APPLICATION_JSON.getMimeType())
                 .sendJson(JsonArray.of(item))
         );
@@ -46,8 +47,10 @@ public class ConsumerClient extends AbstractClient {
                                 "/workspaces/shared/artifacts/buffer/poll"
                             )
                             .putHeader("X-Agent-WebID", this.getAgentId())
+                            .putHeader("X-Agent-LocalName", this.getAgentName())
                             .send()
                 )
+                .replaceAll("[\\[\\]]", "")
             )
         );
     }

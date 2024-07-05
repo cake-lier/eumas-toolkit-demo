@@ -83,6 +83,10 @@ public abstract class AbstractClient extends Artifact {
         return "http://" + this.platformHost + ":" + this.platformPort + "/workspaces/" + this.homeWorkspace + "/agents/" + this.agentName + "#agent";
     }
 
+    protected final String getAgentName() {
+        return this.agentName;
+    }
+
     protected final String doRequest(final Future<HttpResponse<Buffer>> request) {
         this.requestComplete = false;
         request.onComplete(r -> this.execInternalOp("signalResponseReceived"));
