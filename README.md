@@ -10,6 +10,19 @@ This repository demonstrates the features shipped with the latest version of Ygg
 
 ## How do I run it?
 
+First, note that the current build configuration uses [jacamo-hypermedia](https://github.com/HyperAgents/jacamo-hypermedia) as a git submodule. To set this up:
+
+1. Clone this repository recursively:
+
+```
+git clone --recursive git@github.com:cake-lier/eumas-toolkit-demo.git
+```
+
+2. Update the submodule with: `git submodule update`
+
+
+To run demo:
+
 1. Position yourself in the project folder, for example, using the ```cd``` command.
 2. Build the Yggdrasil platform JAR file using the ```./gradlew environment:shadowJar``` command.
 3. Launch the JAR file using the ```docker compose up``` command. 
@@ -34,7 +47,7 @@ env_consumption  | [vert.x-eventloop-thread-0] INFO io.vertx.core.impl.launcher.
 You can now browse the distributed hypermedia workspace from the following entry point: http://localhost:8082/workspaces/manufacturing#workspace
 
 6. Since the environment platform is now running, the JaCaMo platform containing the agents needs to be started. 
-Use the command ```./gradlew agents:runHypermediaAgents``` in a different shell from the one you used for the Docker command.
+Use the command ```./gradlew hypermedia-agents:runAgents``` in a different shell from the one you used for the Docker command.
 7. The system has now finished running, so we can examine its logs.
 
 ## Clean-up
