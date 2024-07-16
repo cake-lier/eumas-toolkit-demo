@@ -21,7 +21,7 @@
     invokeActionWithIntegerOutput("https://example.org/Poll", Item)[artifact_id(BufferArtId)];
     .print("Item (", Item, ") has been polled");
     invokeAction("https://example.org/Consume", [[Item]])[artifact_id(SinkArtId)];
-    .print("Item (", Item, ") has been sent");
+    .print("Item (", Item, ") has been consumed");
     !loop(SinkArtId, BufferArtId).
 
 { include("inc/crawling.asl") }

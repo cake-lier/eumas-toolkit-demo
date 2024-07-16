@@ -37,9 +37,9 @@ git submodule update
 
 At this point, you're ready for running the demo!
 
-### Running the Demo
+### Booting the environment nodes
 
-⚠️ Since the host needs access to the containers launched for the demo,
+⚠️ Since the host needs access to the contaiRunners launched for the demo,
 please ensure ports 8080, 8081, and 8082 are available.
 If not,
 update the ports
@@ -68,6 +68,23 @@ env_consumption  | [vert.x-eventloop-thread-0] INFO io.vertx.core.impl.launcher.
 
 ⚠️ Pay attention to the fact that these messages could get buried between many others,
 so review the logs the containers produce with care! ⚠️
+
+Now, the agents can be booted in two ways,
+depending on if you're interested
+in seeing how agents can exploit the hypermedia properties of Yggdrasil's artifacts to their maximum or not.
+
+### Alternative #1: Booting Simple Agents
+
+4. Use the following command to start the JaCaMo platform containing the simple agents in a different shell from the one you used for the Docker command:
+
+```bash
+./gradlew agents:runAgents
+``` 
+
+When you see a Java Swing window appearing, the setup is complete!
+You can now examine what gets printed in it to [see the system at work](#what-is-happening).
+
+### Alternative #2: Booting Hypermedia Agents
 
 4. Add hyperlinks across the three hypermedia workspaces by running the following script in a different shell from the one you used for the Docker command:
 
@@ -105,10 +122,14 @@ If the buffer gets filled, the producer waits until a spot is free to add anothe
 If it is empty, it is the consumer's turn to wait until a new element gets added to the buffer.
 The agents take a random time each time to produce or consume an element
 to break some improper synchronism between the two.
+
 The elements are integer numbers, while their source, sink, and buffer are all hypermedia artifacts.
-These artifacts are located in three different workspaces, the first in the "production"
+These artifacts exist in three different workspaces, the first in the "production"
 one, the second in the "consumption" one, and the last in a "shared" workspace.
-A general "manufacturing" workspace then contains all three as sub-workspaces.
+Then, a general "manufacturing"
+workspace contains all three as sub-workspaces in the system alternative with hypermedia agents.
+The three sub-workspaces reside on three different Yggdrasil nodes,
+demonstrating that the framework is suitable for deploying distributed MAS environments.
 
 ### Basic behavior
 
@@ -126,12 +147,11 @@ On a successful insertion, the buffer artifact will print on the Docker logs:
 ```
 env_shared       | [buffer] Item (2) has been enqueued!
 ```
-The agent, after completing the action, will print:
+The agent will print the following line after completing the enqueuing action:
 ```
 [alice] Item (2) has been enqueued
 ```
-The "bob" agent, instead, waits until a new element to remove from the buffer is ready and,
-when it is, the agent does so.
+The "bob" agent waits until a new element to remove from the buffer is ready, and when it is, the agent does so.
 The buffer prints the following message:
 ```
 env_shared       | [buffer] Item (2) has been polled!
@@ -140,8 +160,8 @@ The "bob" agent prints this message instead:
 ```
 [bob] Item (2) has been polled
 ```
-Then, the "bob" agent has the job of sending the item to the sink to consume it,
-and when the operation has completed, it prints this message on the JaCaMo console.
+Then, the "bob" agent sends the item to the sink to consume it,
+and when the operation has completed, it prints the following message on the JaCaMo console:
 ```
 [bob] Item (2) has been sent
 ```
@@ -149,10 +169,12 @@ The sink artifact will print this message instead on a successful consumption:
 ```
 env_consumption  | [sink] Item (2) has been consumed!
 ```
-
 ### Crawling
 
-TODO
+If the system with the plain agents gets started,
+the agents join the remote workspaces they already have hardcoded in them.
+They know these workspaces already contain the needed artifacts and the names and interfaces of such artifacts.
+On the other hand, this is not the case when booting up hypermedia agents.
 
 ### Hypermedia Artifacts
 
