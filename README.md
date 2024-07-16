@@ -1,4 +1,4 @@
-# Yggdrasil demo for EUMAS toolkit papers track
+# Yggdrasil Demo for EUMAS Toolkit Papers Track
 
 This repository demonstrates the features shipped with the latest version of Yggdrasil,
 part of the "HyperAgents" project,
@@ -15,7 +15,7 @@ as described in its presenting paper submitted to the EUMAS toolkit papers track
 The current repository structure uses [jacamo-hypermedia](https://github.com/HyperAgents/jacamo-hypermedia) but as a git submodule.
 So, you'll need to clone the repository recursively, along with its submodules.
 
-### Cloning the repository
+### Cloning the Repository
 
 1. Clone this repository using the following command:
 
@@ -37,7 +37,7 @@ git submodule update
 
 At this point, you're ready for running the demo!
 
-### Running the demo
+### Running the Demo
 
 ⚠️ Since the host needs access to the containers launched for the demo,
 please ensure ports 8080, 8081, and 8082 are available.
@@ -86,7 +86,7 @@ You can now browse the distributed hypermedia workspace from this [entrypoint](h
 When you see a Java Swing window appearing, the setup is complete!
 You can now examine what gets printed in it to [see the system at work](#what-is-happening).
 
-## Clean-up
+## Clean Up
 
 To close the window showing the output of the JaCaMo platform, press its "stop" button.
 It will orderly shut down the whole agent platform without trouble.
@@ -95,7 +95,66 @@ press CTRL+C in the shell executing the `docker compose up` command, and then,
 after the containers stop, run the command `docker compose down` to delete the containers.
 If you want a complete cleanup, delete the Yggdrasil image by running the command `docker image rm environment`.
 
-## What is happening?
+## What Is Happening?
+
+The most impressive part is not the system goal:
+the system enacts a behavior simple enough to be familiar to anyone with some grasp of distributed systems.
+The system contains a producer agent and a consumer agent.
+They communicate through a bounded buffer, a well-known pattern implicating that the buffer has a limited capacity.
+If the buffer gets filled, the producer waits until a spot is free to add another element.
+If it is empty, it is the consumer's turn to wait until a new element gets added to the buffer.
+The agents take a random time each time to produce or consume an element
+to break some improper synchronism between the two.
+The elements are integer numbers, while their source, sink, and buffer are all hypermedia artifacts.
+These artifacts are located in three different workspaces, the first in the "production"
+one, the second in the "consumption" one, and the last in a "shared" workspace.
+A general "manufacturing" workspace then contains all three as sub-workspaces.
+
+### Basic behavior
+
+Whenever a new element gets produced,
+the source artifact prints onscreen a message like the following in the Docker logs:
+```
+env_production   | [source] Item (2) has been produced!
+```
+Then, when the "alice" agent gets the element from the source, it prints the following message on the JaCaMo console:
+```
+[alice] Item (2) has been received
+```
+It implies that the agent will try to insert the item in the buffer, waiting to do so if it is full.
+On a successful insertion, the buffer artifact will print on the Docker logs:
+```
+env_shared       | [buffer] Item (2) has been enqueued!
+```
+The agent, after completing the action, will print:
+```
+[alice] Item (2) has been enqueued
+```
+The "bob" agent, instead, waits until a new element to remove from the buffer is ready and,
+when it is, the agent does so.
+The buffer prints the following message:
+```
+env_shared       | [buffer] Item (2) has been polled!
+```
+The "bob" agent prints this message instead:
+```
+[bob] Item (2) has been polled
+```
+Then, the "bob" agent has the job of sending the item to the sink to consume it,
+and when the operation has completed, it prints this message on the JaCaMo console.
+```
+[bob] Item (2) has been sent
+```
+The sink artifact will print this message instead on a successful consumption:
+```
+env_consumption  | [sink] Item (2) has been consumed!
+```
+
+### Crawling
+
+TODO
+
+### Hypermedia Artifacts
 
 TODO
 

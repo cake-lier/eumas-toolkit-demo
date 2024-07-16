@@ -16,12 +16,12 @@
        !loop(SourceArtId, BufferArtId);
     .
 
-+!loop(SoourceArtId, BufferArtId) : true <-
-    invokeActionWithIntegerOutput("https://example.org/Produce", Item)[artifact_id(SoourceArtId)];
++!loop(SourceArtId, BufferArtId) : true <-
+    invokeActionWithIntegerOutput("https://example.org/Produce", Item)[artifact_id(SourceArtId)];
     .print("Item (", Item, ") has been received");
     invokeAction("https://example.org/Enqueue", [[Item]])[artifact_id(BufferArtId)];
     .print("Item (", Item, ") has been enqueued");
-    !loop(SoourceArtId, BufferArtId).
+    !loop(SourceArtId, BufferArtId).
 
 { include("inc/crawling.asl") }
 { include("$jacamoJar/templates/common-cartago.asl") }
